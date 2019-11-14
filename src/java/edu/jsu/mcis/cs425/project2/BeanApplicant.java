@@ -6,6 +6,7 @@ public class BeanApplicant {
     
     private String username;
     private String displayname;
+    private String[] skills;
     private int id;
     
     public void setUserInfo() {
@@ -14,6 +15,13 @@ public class BeanApplicant {
         HashMap<String, String> userinfo = db.getUserInfo(username);
         id = Integer.parseInt(userinfo.get("id"));
         displayname = userinfo.get("displayname");
+        
+    }
+    
+    public String getSkillsList() {
+        
+        Database db = new Database();
+        return ( db.getSkillsListAsHTML(id) );
         
     }
 
@@ -40,5 +48,14 @@ public class BeanApplicant {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String[] getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String[] skills) {
+        this.skills = skills;
+    }
+    
     
 }

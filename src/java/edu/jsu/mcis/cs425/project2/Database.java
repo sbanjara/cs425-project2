@@ -10,8 +10,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
-
 public class Database {
     
     private Connection getConnection() {
@@ -32,35 +30,40 @@ public class Database {
 
     }
     
-    public HashMap getUserInfo(String username) {
+    public HashMap<String, String> getUserInfo(String username) {
         
         HashMap<String, String> results = null;
         String query;
+        Connection conn = null;
         PreparedStatement pstatement = null;
         ResultSet resultset = null;
         boolean hasresults;
         
         try {
      
-            Connection conn = getConnection();
+            conn = getConnection();
             
-            query = "SELECT * FROM 'user' WHERE username = ?";
+            query = "SELECT * FROM user WHERE username = ?";
             
             pstatement = conn.prepareStatement(query);
             
             pstatement.setString(1,username); 
             hasresults = pstatement.execute();
             
+            System.err.print("Test0");
+            
             if(hasresults) {
                 
+                System.err.print("Test1");
                 resultset = pstatement.getResultSet();
                 
                 if(resultset.next()) {
                     
-                    String id = resultset.getString("id");
+                    int id = resultset.getInt("id");
+                    System.err.println();
                     String displayname = resultset.getString("displayname");
                     results = new HashMap();
-                    results.put("id", id);
+                    results.put("id", String.valueOf(id));
                     results.put("displayname", displayname);
                 }
                  
@@ -68,9 +71,58 @@ public class Database {
             
         }
         
-        catch (SQLException e) { System.err.print(e.toString()); }
+        catch (SQLException e) { e.printStackTrace(); }
  
         return results;
+        
+    }
+    
+    public String getSkillsListAsHTML(int userid) {
+        
+        StringBuilder skills = new StringBuilder();
+        
+        String query, checked = "";
+        int id = 0;
+        Connection conn = null;
+        PreparedStatement pstatement = null;
+        ResultSet resultset = null;
+        boolean hasresults;
+        
+        try {
+     
+            conn = getConnection();
+            
+            query = "SELECT * FROM skills LEFT JOIN applicants_to_skills ON user_id = ?";
+            
+            pstatement = conn.prepareStatement(query);
+            
+            pstatement.setInt(1,userid); 
+            hasresults = pstatement.execute();
+            
+            if(hasresults) {
+                
+                resultset = pstatement.getResultSet();
+                
+                while(resultset.next()) {
+                    
+                    if(userid == resultset.getInt("userid"))
+                        checked = "checked";
+                    
+                    String skill = resultset.getString("description");
+                    id = resultset.getInt("id");
+                    skills.append("<input type=\"checkbox\" name=\"skills\" value=");
+                    skills.append("\"").append(id).append("\"").append("id=\"skills_").append(id).append("\">");
+                    skills.append("<label for=\"skills_").append(id).append("\"").append(checked).append(">").append(skill).append("</label><br>");
+                    
+                }
+                 
+            }
+            
+        }
+        
+        catch (SQLException e) { e.printStackTrace(); }
+        
+        return skills.toString(); 
         
     }
     
