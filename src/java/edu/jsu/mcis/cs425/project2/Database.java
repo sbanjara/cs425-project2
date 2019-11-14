@@ -92,7 +92,8 @@ public class Database {
      
             conn = getConnection();
             
-            query = "SELECT * FROM skills LEFT JOIN applicants_to_skills ON user_id = ?";
+            query = "SELECT * FROM skills LEFT JOIN applicants_to_skills ON "
+                   + "( skills.id = applicants_to_skills.skillsid AND applicants_to_skills.userid = ?)";
             
             pstatement = conn.prepareStatement(query);
             
@@ -111,8 +112,8 @@ public class Database {
                     String skill = resultset.getString("description");
                     id = resultset.getInt("id");
                     skills.append("<input type=\"checkbox\" name=\"skills\" value=");
-                    skills.append("\"").append(id).append("\"").append("id=\"skills_").append(id).append("\">");
-                    skills.append("<label for=\"skills_").append(id).append("\"").append(checked).append(">").append(skill).append("</label><br>");
+                    skills.append("\"").append(id).append("\"").append("id=\"skills_").append(id).append("\" ").append(checked).append(">");
+                    skills.append("<label for=\"skills_").append(id).append("\">").append(skill).append("</label><br>");
                     
                 }
                  
