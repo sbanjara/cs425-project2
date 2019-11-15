@@ -50,11 +50,8 @@ public class Database {
             pstatement.setString(1,username); 
             hasresults = pstatement.execute();
             
-            System.err.print("Test0");
-            
             if(hasresults) {
                 
-                System.err.print("Test1");
                 resultset = pstatement.getResultSet();
                 
                 if(resultset.next()) {
@@ -106,14 +103,17 @@ public class Database {
                 
                 while(resultset.next()) {
                     
-                    if(userid == resultset.getInt("userid"))
+                    if(userid == resultset.getInt("userid")) {
                         checked = "checked";
+                    }
                     
                     String skill = resultset.getString("description");
                     id = resultset.getInt("id");
-                    skills.append("<input type=\"checkbox\" name=\"skills\" value=");
+                    skills.append("<p><input type=\"checkbox\" name=\"skills\" value=");
                     skills.append("\"").append(id).append("\"").append("id=\"skills_").append(id).append("\" ").append(checked).append(">");
-                    skills.append("<label for=\"skills_").append(id).append("\">").append(skill).append("</label><br>");
+                    skills.append("<label for=\"skills_").append(id).append("\">").append(skill).append("</label></p>");
+                    
+                    checked = "";
                     
                 }
                  

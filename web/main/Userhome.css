@@ -1,12 +1,101 @@
 
-header {
+body {
     
-    background-color: buttonshadow;
-    color: red;
-    text-align: right;
+    margin: 0;
+    padding: 0;
+    border: 0;
     
 }
 
-h1 {
-    color: activeborder;
+header {
+    
+    color: white;
+    background-color: #bc0000;
+    text-align: center;
+    
 }
+
+#container {
+    
+    margin: 0px 30px 0px 30px;
+    background-color: #F7F7F7;
+    padding-top: 20px;
+    padding-bottom: 20px;
+        
+}
+
+#student_description {
+	
+    border-top-style: none;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-bottom-color: red;
+
+    text-align: right;
+    font-family: Helvetica;
+    font-size: 16px;
+
+    padding-left: 2%;
+    padding-right: 2%;
+	
+}
+
+#welcome_message {
+    
+    font-family: Helvetica;
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom-style: solid;
+    border-bottom-color: red;
+    border-width: 1px;
+    
+}
+
+.sidenav {
+	
+    height: 20%;
+    width: 200px;
+    position: static;
+    top: 150px;
+    overflow-x: hidden;
+    padding-top: 20px;
+	
+}
+
+.sidenav a {
+	
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 30px;
+    display: block;
+    border: ridge;
+    border-width: 1px;
+    color: black;
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+	
+}
+
+footer {
+   
+    text-align: center;
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #002233;
+    font-family: Verdana;
+	
+}
+
+#form_area {
+    
+    margin: 0px 30% 0px 30%;
+    font-size: 20px;
+    font-family: Helvetica;
+    background-color: white;
+    
+}
+
+

@@ -10,22 +10,47 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>Select Skills</title>
       
+      <link rel="stylesheet" type="text/css" href="Userhome.css">
+      
    </head>
    
    <body>
        
-      <form id="skillsform" name="skillsform" method="post" action="applicant_jobs.jsp">
-          
-         <fieldset>
-             
-            <legend>Select Your Skills:</legend>
-            <jsp:getProperty name="applicant" property="skillsList" />
+        <header id="header">
             
-            <input type="submit" value="Submit" />
+            <img src="jsu_logo.jpg" height= 130px id="jsulogo">		
             
-         </fieldset>
+	</header>
+       
+        <div id="container">
             
-      </form>
+            <div id="form_area">
+       
+                <form id="skillsform" name="skillsform" method="post" action="applicant_jobs.jsp">
+
+                    <fieldset>
+
+                        <legend>Select Your Skills:</legend>
+                        <jsp:getProperty name="applicant" property="skillsList" />
+
+                        <input type="submit" value="Submit" />
+
+                    </fieldset>
+
+                </form>
+            
+            </div>
+                
+        </div>
+                
+        <footer id="footer">
+
+            <p>Jacksonville State University</p>
+            <p>700 Pelham Rd N,Jacksonville, AL 36265<p>
+            <p>Phone:1-800-231-5291</p>
+            <p>Email: info@jsu.edu</p>
+		
+	</footer>
             
    </body>
    

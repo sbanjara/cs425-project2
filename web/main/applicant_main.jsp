@@ -18,22 +18,42 @@
     
     <body>
         
-        
-        <header>
-            
-            <h3>Display Name: <jsp:getProperty name="applicant" property="displayname" /></h3>
-            <h3>User ID: <jsp:getProperty name="applicant" property="id" /></h3>
-            
+        <header id="header">
+			
+            <img src="jsu_logo.jpg" height= 130px id="jsulogo">
+			
         </header>
-            
-        <p> 
-            <a href="applicant_skills.jsp">Skills List</a> 
-        </p>
-            
-            
-        <h1>Hello, <jsp:getProperty name="applicant" property="username" />!</h1>
         
-        <a href="<%= request.getContextPath() %>/public/logout.jsp" target="_self">Log Out</a>
+        <div id="container">
+   
+            <div id="student_description">
+                
+                <p><strong>Display Name: <jsp:getProperty name="applicant" property="displayname" /> </strong></p>
+                <p><strong>User ID: <jsp:getProperty name="applicant" property="id" /> </strong></p>
+                
+            </div>
+            
+            <p id="welcome_message">Welcome, <jsp:getProperty name="applicant" property="username" />!</p>
+
+            <div class="sidenav">
+                
+                <a href="applicant_skills.jsp">Skills List</a> 
+                <a href="applicant_jobs.jsp">Jobs List</a>
+                <a href="<%= request.getContextPath() %>/public/logout.jsp" target="_self">Log Out</a>
+                
+                
+            </div>
+        
+        </div>
+                
+        <footer>
+			
+            <p>Jacksonville State University</p>
+            <p>700 Pelham Rd N,Jacksonville, AL 36265<p>
+            <p>Phone:1-800-231-5291</p>
+            <p>Email: info@jsu.edu</p>
+
+        </footer>
         
     </body>
     
