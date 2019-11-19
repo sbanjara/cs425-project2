@@ -24,6 +24,20 @@ public class BeanApplicant {
         return ( db.getSkillsListAsHTML(id) );
         
     }
+    
+    public void setSkillsList() {
+        
+        Database db = new Database();
+        db.setSkillsList(id, skills);
+        
+    }
+    
+    public String getJobsList() {
+        
+        Database db = new Database();
+        return ( db.getJobsListAsHTML(id, skills) );
+        
+    }
 
     public String getDisplayname() {
         return displayname;

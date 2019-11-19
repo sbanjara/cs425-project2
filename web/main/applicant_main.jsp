@@ -20,7 +20,7 @@
         
         <header id="header">
 			
-            <img src="jsu_logo.jpg" height= 130px id="jsulogo">
+            <img src="<%= request.getContextPath() %>/public/jsu_logo.jpg" height= 130px id="jsulogo">
 			
         </header>
         

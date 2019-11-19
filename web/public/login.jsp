@@ -9,7 +9,7 @@
         <title>Log In</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         
-        <link rel="stylesheet" type="text/css" href="login.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/public/Login.css">
 
     </head>
 
@@ -17,9 +17,15 @@
 
         <header id="header">
             
-            <img src="jsu_logo.jpg" height= 130px id="jsulogo">		
+            <img src="<%= request.getContextPath() %>/public/jsu_logo.jpg" height= 130px id="jsulogo">		
             
 	</header>
+            
+        <div id="sub_header"> 
+            
+            <h1>Login Setup</h1>
+               
+        </div>
         
         <div id=container> 
             
@@ -29,7 +35,7 @@
 
                     <fieldset>
 
-                        <legend>Login Setup</legend>
+                        <legend>Log In</legend>
 
                         <p>
                             <label for="j_username">Username:</label>

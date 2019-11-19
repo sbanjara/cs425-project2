@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -124,6 +126,90 @@ public class Database {
         catch (SQLException e) { e.printStackTrace(); }
         
         return skills.toString(); 
+        
+    }
+    
+    public void setSkillsList(int id, String[] skills) {
+        
+        Connection conn = getConnection();
+        PreparedStatement pstatement = null;
+        String query = null;
+        
+        try {
+            
+            query = "DELETE FROM applicants_to_skills WHERE userid = ?";
+            
+            pstatement = conn.prepareStatement(query);
+            pstatement.setInt(1, id);
+            
+            pstatement.execute();
+            
+            query = "INSERT INTO applicants_to_skills(userid, skillsid) VALUES(?, ?)";
+            pstatement = conn.prepareStatement(query);
+            
+            for( String s: skills ){
+                
+                pstatement.setInt(1, id);
+                pstatement.setInt(2, Integer.parseInt(s));
+                pstatement.addBatch();
+                
+            } 
+            
+            int[] r = pstatement.executeBatch();
+            conn.commit();
+            
+        } 
+        
+        catch (SQLException e) { e.printStackTrace(); }
+        
+    }
+    
+    public String getJobsListAsHTML(int userid, String[] skills) {
+        
+        StringBuilder jobs = new StringBuilder();
+        
+        String query, checked = "";
+        int id = 0;
+        Connection conn = null;
+        PreparedStatement pstatement = null;
+        ResultSet resultset = null;
+        boolean hasresults;
+        
+        try {
+     
+            conn = getConnection();
+            
+            query = "SELECT * FROM applicants_to_jobs LEFT JOIN jobs ON "
+                   + "( applicants_to_jobs.jobsid = jobs.id AND applicants_to_jobs.userid = ?)";
+           
+            pstatement = conn.prepareStatement(query);
+            
+            pstatement.setInt(1,userid); 
+            hasresults = pstatement.execute();
+            
+            if(hasresults) {
+                
+                resultset = pstatement.getResultSet();
+                
+                while(resultset.next()) {
+                    
+                    String job = resultset.getString("name");
+                    id = resultset.getInt("id");
+                    jobs.append("<p><input type=\"checkbox\" name=\"jobs\" value=");
+                    jobs.append("\"").append(id).append("\"").append("id=\"jobs_").append(id).append("\" ").append(checked).append(">");
+                    jobs.append("<label for=\"jobs_").append(id).append("\">").append(job).append("</label></p>");
+                    
+                    checked = "";
+                    
+                }
+                 
+            }
+            
+        }
+        
+        catch (SQLException e) { e.printStackTrace(); }
+        
+        return jobs.toString(); 
         
     }
     
