@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 
 public class Database {
     
-    private Connection getConnection() {
+    public Connection getConnection() {
         
         Connection conn = null;
         
@@ -179,8 +179,8 @@ public class Database {
      
             conn = getConnection();
             
-            query = "SELECT * FROM applicants_to_jobs LEFT JOIN jobs ON "
-                   + "( applicants_to_jobs.jobsid = jobs.id AND applicants_to_jobs.userid = ?)";
+            query = "SELECT * FROM applicants_to_skills a JOIN skills_to_jobs s ON s.skillsid = a.skillsid " +
+                     "JOIN jobs j ON j.id = s.jobsid LEFT JOIN applicants_to_jobs aj ON aj.jobsid = j.id; ";
            
             pstatement = conn.prepareStatement(query);
             
@@ -210,6 +210,41 @@ public class Database {
         catch (SQLException e) { e.printStackTrace(); }
         
         return jobs.toString(); 
+        
+    }
+    
+    public void setJobsList(int id, String[] jobs) {
+        
+        Connection conn = getConnection();
+        PreparedStatement pstatement = null;
+        String query = null;
+        
+        try {
+            
+            query = "DELETE FROM applicants_to_jobs WHERE userid = ?";
+            
+            pstatement = conn.prepareStatement(query);
+            pstatement.setInt(1, id);
+            
+            pstatement.execute();
+            
+            query = "INSERT INTO applicants_to_jobs(userid, jobsid) VALUES(?, ?)";
+            pstatement = conn.prepareStatement(query);
+            
+            for( String s: jobs ){
+                
+                pstatement.setInt(1, id);
+                pstatement.setInt(2, Integer.parseInt(s));
+                pstatement.addBatch();
+                
+            } 
+            
+            int[] r = pstatement.executeBatch();
+            conn.commit();
+            
+        } 
+        
+        catch (SQLException e) { e.printStackTrace(); }
         
     }
     

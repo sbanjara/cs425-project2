@@ -7,6 +7,7 @@ public class BeanApplicant {
     private String username;
     private String displayname;
     private String[] skills;
+    private String[] jobs;
     private int id;
     
     public void setUserInfo() {
@@ -29,6 +30,13 @@ public class BeanApplicant {
         
         Database db = new Database();
         db.setSkillsList(id, skills);
+        
+    }
+    
+    public void setJobsList() {
+        
+        Database db = new Database();
+        db.setJobsList(id, jobs);
         
     }
     
@@ -69,6 +77,14 @@ public class BeanApplicant {
 
     public void setSkills(String[] skills) {
         this.skills = skills;
+    }
+
+    public String[] getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(String[] jobs) {
+        this.jobs = jobs;
     }
     
     
