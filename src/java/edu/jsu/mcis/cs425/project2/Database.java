@@ -156,7 +156,6 @@ public class Database {
             } 
             
             int[] r = pstatement.executeBatch();
-            conn.commit();
             
         } 
         
@@ -179,12 +178,23 @@ public class Database {
      
             conn = getConnection();
             
-            query = "SELECT * FROM applicants_to_skills a JOIN skills_to_jobs s ON s.skillsid = a.skillsid " +
-                     "JOIN jobs j ON j.id = s.jobsid LEFT JOIN applicants_to_jobs aj ON aj.jobsid = j.id; ";
+            /*
+            
+            SELECT * FROM applicants_to_jobs LEFT JOIN jobs ON (applicants_to_jobs.userid = ? AND applicants_to_jobs.jobsid = jobs.id)
+         
+            */
+                    
+            query = "SELECT jobs.id, jobs.name, a.userid FROM jobs "
+                    + "LEFT JOIN (SELECT * FROM applicants_to_jobs WHERE userid = ?) "
+                    + "AS a ON jobs.id = a.jobsid "
+                    + "WHERE jobs.id IN (SELECT jobsid AS id FROM "
+                    + "(applicants_to_skills JOIN skills_to_jobs ON applicants_to_skills.skillsid = skills_to_jobs.skillsid) "
+                    + "WHERE applicants_to_skills.userid = ?) ORDER BY jobs.name";
            
             pstatement = conn.prepareStatement(query);
             
-            pstatement.setInt(1,userid); 
+            pstatement.setInt(1, userid); 
+            pstatement.setInt(2, userid);
             hasresults = pstatement.execute();
             
             if(hasresults) {
@@ -192,6 +202,10 @@ public class Database {
                 resultset = pstatement.getResultSet();
                 
                 while(resultset.next()) {
+                    
+                    if(userid == resultset.getInt("userid")) {
+                        checked = "checked";
+                    }
                     
                     String job = resultset.getString("name");
                     id = resultset.getInt("id");
@@ -240,8 +254,7 @@ public class Database {
             } 
             
             int[] r = pstatement.executeBatch();
-            conn.commit();
-            
+      
         } 
         
         catch (SQLException e) { e.printStackTrace(); }

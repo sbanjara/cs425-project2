@@ -27,7 +27,7 @@ public class JobReport extends HttpServlet {
             
             ServletContext context = getServletContext();
             ServletOutputStream out = response.getOutputStream();
-            String reportFile = context.getRealPath("/main/reports/JobReport.jasper");
+            String reportFile = context.getRealPath("/main/Reports/JobReport.jasper");
             
             /* Acquire Session Bean */
             
