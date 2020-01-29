@@ -4,9 +4,8 @@
    via which they can apply for the jobs that matches their skills set. 
 ## Description
    Once the user launches this app, they are prompted to the login page as showm below,
-   After entering the username and password, the user is prompted to a page where they can add and see skills and jobs. 
+   After entering the username and password (**Username: jobseeker and Password: jobseeker**), the user is prompted to a page 
+   where  they can add and see skills and jobs. 
    Also, it has a logout button to logout. This page will look like this,
- **Username = jobseeker
-   Password = jobseeker**
    After the user selects the jobs, the pdf file is prompted with the jobs and the skills set of the user for that job.
 
