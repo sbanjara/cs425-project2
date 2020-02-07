@@ -27,3 +27,17 @@
    ##
                      git clone https://github.com/sbanjara/cs425-project2
    Once this project is cloned in your workstation, you can open  in the Netbeans and run.
+  
+##
+## Configuring the Database for the Database Pooling
+   To run this application, you'll need to import the application database (**cs425_p2.sql**). After importing the database, you'll need to create database accounts for it, and grant these accounts the appropriate permissions in MySQL. To do this, please run the following command from an SQL client while logged in to MySQL as root:
+ ##
+         source C:\USER\Desktop\cs425_p2.sql ( It assumes the location of sql file is in Desktop. It may be different for you.)
+         create user 'p2_auth'@'localhost' identified by 'CS425!Project2';
+         create user 'p2_user'@'localhost' identified by 'CS425!Project2';
+         grant select on cs425_p2.login to 'p2_auth'@'localhost';
+         grant select on cs425_p2.user_to_role to 'p2_auth'@'localhost';
+         grant all on cs425_p2.* to 'p2_user'@'localhost';
+         flush privileges;
+ ##
+   The **"p2_user"** is for the database pool and **"p2_auth"** is for a restricted account for user authentication while login.
