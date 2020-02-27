@@ -22,29 +22,7 @@
    Once the user selects the jobs and submits them, the job report is created on fly. The job report is a pdf file which consists student's information, jobs selected, and the skills that the user possess for those jobs.
    
 ##
-## Running this Project
-   To run this project, you'll need MySQL, Java (particularly Java 8), Apache Tomcat Server, and Netbeans. If you don't have these tools, you can install them as described here (https://github.com/sbanjara/RequiredTools-Installation). Once you have all these required tools, you can clone this repository by running this command,
-   ##
-                     git clone https://github.com/sbanjara/cs425-project2
-   Once this project is cloned in your workstation, you can open  in the Netbeans and run.
-  
-##
-## Configuring the Database for the Database Pooling
-   To run this application, you'll need to import the application database (**cs425_p2.sql**). After importing the database, you'll need to create database accounts for it, and grant these accounts the appropriate permissions in MySQL. To do this, please run the following command from an SQL client while logged in to MySQL as root:
- ##
-         source C:\USER\Desktop\cs425_p2.sql ( It assumes the location of sql file is in Desktop. It may be different for you.)
-         create user 'p2_auth'@'localhost' identified by 'CS425!Project2';
-         create user 'p2_user'@'localhost' identified by 'CS425!Project2';
-         grant select on cs425_p2.login to 'p2_auth'@'localhost';
-         grant select on cs425_p2.user_to_role to 'p2_auth'@'localhost';
-         grant all on cs425_p2.* to 'p2_user'@'localhost';
-         flush privileges;
- ##
-   The **"p2_user"** is for the database pool and **"p2_auth"** is for a restricted account for user authentication while login.
-   
-##
- ## Structure and its Important Classes and their Methods
- ##
+## Structure and its Important Classes and their Methods
   The directory structure of the source code is as follows:
 
     project root     (root directory of project, "cs425-project2")
@@ -95,13 +73,37 @@
                     |      |
                     |      - web.xml (configuration of security and login) 
                     
-##
+###
 ### Database class
    Database class is responsible for connecting the database (cs425_p2). It either gets the data associated with the user or adds data into the database. It has following methods;
-   ## 
+   ###
    i) **public HashMap<String, String> getUserInfo(String username)** = It retrieves user's information (id and displayname) and adds it to the Hashmap and returns it.
+   ###
    ii) **public String getSkillsListAsHTML(int userid)** = It retrieves all the skills from the database and stores them in a string as a checkbox. If the applicants already have those skills, then the checkbox will be checked. It returns the skills string.
+   ###
    iii) **public void setSkillsList(int id, String[] skills)** = It updates the user's skills in the applicants_to_skills table. When the user selects the skills, they are passed as an argument along with the user id. And the skills are updated.
+   ###
    iv) **public String getJobsListAsHTML(int userid, String[] skills)** =  It retrieves all the jobs from the database that matches the user's skills. It returns the jobs as a string.
+   ###
    v) **public void setJobsList(int id, String[] jobs** = It updates the user's jobs in the applicants_to_jobs table. When the user selects the jobs, they are passed as an argument along with the user id. And the jobs are updated.
+   
+##
+## Configuring the Database for the Database Pooling
+   To run this application, you'll need to import the application database (**cs425_p2.sql**). After importing the database, you'll need to create database accounts for it, and grant these accounts the appropriate permissions in MySQL. To do this, please run the following command from an SQL client while logged in to MySQL as root:
+ ##
+         source C:\USER\Desktop\cs425_p2.sql ( It assumes the location of sql file is in Desktop. It may be different for you.)
+         create user 'p2_auth'@'localhost' identified by 'CS425!Project2';
+         create user 'p2_user'@'localhost' identified by 'CS425!Project2';
+         grant select on cs425_p2.login to 'p2_auth'@'localhost';
+         grant select on cs425_p2.user_to_role to 'p2_auth'@'localhost';
+         grant all on cs425_p2.* to 'p2_user'@'localhost';
+         flush privileges;
+ ##
+   The **"p2_user"** is for the database pool and **"p2_auth"** is for a restricted account for user authentication while login.
+##
+## Running this Project
+   To run this project, you'll need MySQL, Java (particularly Java 8), Apache Tomcat Server, and Netbeans. If you don't have these tools, you can install them as described here (https://github.com/sbanjara/RequiredTools-Installation). Once you have all these required tools, you can clone this repository by running this command,
+   ##
+                     git clone https://github.com/sbanjara/cs425-project2
+   Once this project is cloned in your workstation, you can open  in the Netbeans and run.
    
