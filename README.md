@@ -19,10 +19,10 @@
    
    ![picture](employment4.png)
    
-   Once the user selects the jobs and submits them, the job report is created on fly. The job report is a pdf file which consists student's information, jobs selected, and the skills that the user possess for those jobs.
+   Once the user selects the jobs and submits them, the job report is created. The job report is a pdf file which consists of student's information, jobs selected, and the skills that the user possess for those jobs.
    
 ##
-## Structure and its Important Classes and their Methods
+## Structure
   The directory structure of the source code is as follows:
 
     project root     (root directory of project, "cs425-project2")
@@ -73,20 +73,35 @@
                     |      |
                     |      - web.xml (configuration of security and login) 
                     
-###
-### Database class
+##
+##  Important Classes and their Methods
+##
+### Database Class
    Database class is responsible for connecting the database (cs425_p2). It either gets the data associated with the user or adds data into the database. It has following methods;
-   ###
+   ##
    i) **public HashMap<String, String> getUserInfo(String username)** = It retrieves user's information (id and displayname) and adds it to the Hashmap and returns it.
-   ###
+   ##
    ii) **public String getSkillsListAsHTML(int userid)** = It retrieves all the skills from the database and stores them in a string as a checkbox. If the applicants already have those skills, then the checkbox will be checked. It returns the skills string.
-   ###
+   ##
    iii) **public void setSkillsList(int id, String[] skills)** = It updates the user's skills in the applicants_to_skills table. When the user selects the skills, they are passed as an argument along with the user id. And the skills are updated.
-   ###
+   ##
    iv) **public String getJobsListAsHTML(int userid, String[] skills)** =  It retrieves all the jobs from the database that matches the user's skills. It returns the jobs as a string.
-   ###
-   v) **public void setJobsList(int id, String[] jobs** = It updates the user's jobs in the applicants_to_jobs table. When the user selects the jobs, they are passed as an argument along with the user id. And the jobs are updated.
-   
+   ##
+   v) **public void setJobsList(int id, String[] jobs)** = It updates the user's jobs in the applicants_to_jobs table. When the user selects the jobs, they are passed as an argument along with the user id. And the jobs are updated.
+##
+### BeanApplicant Class
+   It hold user's information: username, displayname, id, and list of skills and jobs. It has five instance fields namely username, displayname, skills, jobs, and id. It has following methods along with the getter and setter methods for the instance fields;
+   ##
+   i) **public void setUserInfo()** = It pulls up information from the getUserInfo(String username) method of Database class, and sets the value of id and displayname.
+   ##
+   ii) **public String getSkillsList()** = It gets all the user's skills from the getSkillsListAsHTML(int userid) method of Database class.
+   ##
+   iii) **public String setSkillsList()** = It sets the user's skills by calling the setSkillsList(int id, String[] skills) method of Database class.
+   ##
+   iv) **public String getJobsList()** = It gets the user's jobs by calling the getJobsListAsHTML(int id, String[] skills) method of Database class.
+   ##
+   iii) **public String setJobsList()** = It sets the user's jobs by calling the setJobsList(int id, String[] jobs) method of Database class.
+   ##
 ##
 ## Configuring the Database for the Database Pooling
    To run this application, you'll need to import the application database (**cs425_p2.sql**). After importing the database, you'll need to create database accounts for it, and grant these accounts the appropriate permissions in MySQL. To do this, please run the following command from an SQL client while logged in to MySQL as root:
@@ -105,5 +120,6 @@
    To run this project, you'll need MySQL, Java (particularly Java 8), Apache Tomcat Server, and Netbeans. If you don't have these tools, you can install them as described here (https://github.com/sbanjara/RequiredTools-Installation). Once you have all these required tools, you can clone this repository by running this command,
    ##
                      git clone https://github.com/sbanjara/cs425-project2
-   Once this project is cloned in your workstation, you can open  in the Netbeans and run.
+   ##
+   Once this project is cloned in your workstation, you can open and run it in the Netbeans.
    
